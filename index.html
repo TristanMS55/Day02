@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <title>Game Loop</title>
+
+        <style>
+            /* Remove margins and never show scrollbars */
+            *{
+                margin:0;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+
+    <body>
+        <canvas id="canv">
+
+        </canvas>
+
+        <script src="Vector2.js"></script>
+
+        <script>
+            let canvas = document.querySelector("#canv")
+            let ctx = canvas.getContext("2d")
+            let position = new Vector2(50, 50)
+
+            function gameLoop() {
+                //update and draw
+                update()
+                draw()
+
+                //...then call game loop again next time browser can\
+                requestAnimationFrame(gameLoop)
+            }
+
+            function update() {
+                position.x = position.x + 5
+                position.y = position.y + 2.5
+            }
+
+            function draw(){
+                //Expand the Size of the Canvas
+                canvas.width = window.innerWidth
+                canvas.height = window.innerHeight
+
+                //Signaling to the context that I'm going to draw something
+                ctx.save()
+
+                //Set center of our object
+                ctx.translate(position.x, position.y)
+
+                ctx.lineTo(100, -50)
+                ctx.lineTo(90, -40)
+                ctx.lineTo(100, 50)
+                ctx.lineTo(-100, 50)
+                ctx.lineTo(-90, -40)
+                ctx.lineTo(-90, -40)
+                ctx.lineTo(-100, -50)
+                
+
+                ctx.fillStyle = "black"
+                //tell canvas to draw object
+                ctx.fill()
+
+                //Signaling that I'm done drawing
+                ctx.restore()
+            }
+
+            requestAnimationFrame(gameLoop)
+        </script>
+    </body>
+</html>
